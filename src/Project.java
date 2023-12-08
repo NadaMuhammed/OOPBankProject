@@ -15,7 +15,8 @@ public class Project {
             System.out.println("4 to View Specific Account Details ");
             System.out.println("5 to Withdraw ");
             System.out.println("6 to Deposit ");
-            System.out.println("7 to Exit ");
+            System.out.println("7 to Remove Account ");
+            System.out.println("8 to Exit ");
             int userSelection = input.nextInt();
             boolean shouldBreak = false;
             switch (userSelection) {
@@ -38,6 +39,9 @@ public class Project {
                     deposit();
                     break;
                 case 7:
+                    removeAccount();
+                    break;
+                case 8:
                     System.out.println("Thank you for using our bank!");
                     shouldBreak = true;
                     break;
@@ -64,6 +68,15 @@ public class Project {
 //            } else {
 //                System.out.println("Enter A Valid Number!");
 //            }
+        }
+    }
+
+    private static void removeAccount() {
+        BasicBankAccount account = getAccountById();
+        if (account != null) {
+            accounts.remove(account);
+            clients.remove(account.getClient());
+            System.out.println("Account Removed Successfully!");
         }
     }
 
