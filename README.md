@@ -1,4 +1,4 @@
-. Banking OOP Project
+# Banking OOP Project
 
 
 The banking application allows the user, i.e., the bank employee to create a bank account for a specific client. It allows him to list all the available bank accounts, list all available clients.
