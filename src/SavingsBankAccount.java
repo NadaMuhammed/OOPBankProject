@@ -41,4 +41,15 @@ public class SavingsBankAccount extends BasicBankAccount{
         System.out.println("Process Succeeded!");
 
     }
+    @Override
+    public void view() {
+        System.out.println("Account Id: "+this.getAccountId());
+        System.out.println("Balance: "+this.getBalance());
+        System.out.println("Account minimum balance: "+minimumBalance);
+        System.out.println("Client Name: "+getClient().getName());
+        System.out.println("Client Phone Number: "+getClient().getPhoneNumber());
+        System.out.println("Client Address: "+getClient().getAddress());
+        System.out.println("-----------------------------------------------------");
+
+    }
 }
