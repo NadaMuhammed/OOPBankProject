@@ -5,8 +5,9 @@ public class Project {
     private static ArrayList<BasicBankAccount> accounts = new ArrayList<>();
     private static ArrayList<Client> clients = new ArrayList<>();
     static Scanner input = new Scanner(System.in);
+
     public static void main(String[] args) {
-        while (true){
+        while (true) {
             System.out.println("Enter: ");
             System.out.println("1 to Create Account ");
             System.out.println("2 to List All Accounts ");
@@ -17,7 +18,7 @@ public class Project {
             System.out.println("7 to Exit ");
             int userSelection = input.nextInt();
             boolean shouldBreak = false;
-            switch (userSelection){
+            switch (userSelection) {
                 case 1:
                     CreateAccount();
                     break;
@@ -38,11 +39,12 @@ public class Project {
                     break;
                 case 7:
                     System.out.println("Thank you for using our bank!");
-                    shouldBreak=true;
+                    shouldBreak = true;
                     break;
                 default:
                     System.out.println("Enter Valid Selection");
-            } if(shouldBreak)
+            }
+            if (shouldBreak)
                 break;
 //            if(userSelection==1){
 //                CreateAccount();
@@ -66,61 +68,52 @@ public class Project {
     }
 
     private static void deposit() {
-        System.out.println("Please enter account id to deposit:");
-        String accountId = input.next();
-        BasicBankAccount account = getAccountById(accountId);
-        if(account==null){
-            System.out.println("Account Not Found");
-        } else {
+        BasicBankAccount account = getAccountById();
+        if (account != null) {
             System.out.println("Enter The Amount Of Money You Want To Deposit:");
             int amount = input.nextInt();
             account.deposit(amount);
-            System.out.println("Current Balance: "+account.getBalance());
+            System.out.println("Current Balance: " + account.getBalance());
         }
 
     }
 
     private static void withdraw() {
-        System.out.println("Please enter account id to withdraw from:");
-        String accountId = input.next();
-        BasicBankAccount account = getAccountById(accountId);
-        if(account==null){
-            System.out.println("Account Not Found");
-        } else {
+        BasicBankAccount account = getAccountById();
+        if (account != null) {
             System.out.println("Enter the withdrawal amount:");
             int requestedAmount = input.nextInt();
-            while (requestedAmount>account.getBalance()){
+            while (requestedAmount > account.getBalance()) {
                 System.out.println("Please enter valid amount");
-                requestedAmount= input.nextInt();
+                requestedAmount = input.nextInt();
             }
             account.withdraw(requestedAmount);
-            System.out.println("Current Balance: "+account.getBalance());
+            System.out.println("Current Balance: " + account.getBalance());
         }
-        
+
     }
 
     private static void viewSpecificAccount() {
-        System.out.println("Enter Account ID:");
-        String accountId = input.next();
-        BasicBankAccount account = getAccountById(accountId);
-        if (account!=null){
+        BasicBankAccount account = getAccountById();
+        if (account != null) {
             account.view();
-        } else {
-            System.out.println("Account Not Found");
         }
     }
 
-    private static BasicBankAccount getAccountById(String accountId){
-        for (BasicBankAccount account: accounts){
-            if (account.getAccountId().equalsIgnoreCase(accountId)){
+    private static BasicBankAccount getAccountById() {
+        System.out.println("Please enter account id:");
+        String accountId = input.next();
+        for (BasicBankAccount account : accounts) {
+            if (account.getAccountId().equalsIgnoreCase(accountId)) {
                 return account;
             }
         }
         System.out.println("Account Not Found");
         return null;
     }
+
     private static void listAllClients() {
-        for (Client client: clients){
+        for (Client client : clients) {
             client.view();
         }
     }
@@ -133,7 +126,7 @@ public class Project {
 
         System.out.println("Please enter your name:");
         String name = input.next();
-        name = name.substring(0,1).toUpperCase() + name.substring(1);
+        name = name.substring(0, 1).toUpperCase() + name.substring(1);
         System.out.println("Please enter your address:");
         String address = input.next();
         System.out.println("Please enter your phone number:");
@@ -141,28 +134,28 @@ public class Project {
         Client client = new Client(name, address, phoneNumber);
         clients.add(client);
         BasicBankAccount account = null;
-        if (userSelection==1){
+        if (userSelection == 1) {
             System.out.println("Please enter your balance:");
             int balance = input.nextInt();
             account = new BasicBankAccount(balance);
 
-        } else if(userSelection==2){
+        } else if (userSelection == 2) {
             System.out.println("Please enter your minimum balance:");
             int minBalance = input.nextInt();
             System.out.println("Please enter your balance:");
             int balance = input.nextInt();
 
-            while (balance<minBalance){
+            while (balance < minBalance) {
                 System.out.println("Please enter valid balance! Balance cannot be less than your minimum balance");
-                balance=input.nextInt();
+                balance = input.nextInt();
             }
 
-            account = new SavingsBankAccount(minBalance,balance);
+            account = new SavingsBankAccount(minBalance, balance);
         } else
             System.out.println("Enter Valid Number!");
 
 
-        if(account!=null) {
+        if (account != null) {
             accounts.add(account);
             client.setAccount(account);
             account.setClient(client);
